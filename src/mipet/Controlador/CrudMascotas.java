@@ -37,8 +37,8 @@ public class CrudMascotas {
             stmt.setBoolean(4, ma.isVigente());
             stmt.setInt(5, ma.getEdad());
             stmt.setInt(6,ma.getChip());
-          /*  stmt.setTipoMascotas(7,ma.getTipomascotas());
-            stmt.setCliente(8,ma.getCliente()); */
+            stmt.setInt(7,ma.getTipomascotas().getCodigo());
+            stmt.setString(8,ma.getCliente().getRut());
             stmt.executeUpdate();
             return true;
         } catch (SQLException ex) {
