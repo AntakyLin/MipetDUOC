@@ -222,6 +222,7 @@ public class VCliente extends javax.swing.JFrame {
         String appa=txtApellidoPaterno.getText();
         String apma=txtApellidoMaterno.getText();
         
+        
         Cliente cli=new Cliente(run,nomb,appa,apma);
         crudcliente.agregar(cli);
         JOptionPane.showMessageDialog(this,"Cliente Ingresado Correctamente");

@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mipet.Util.Conexion;
+import javax.swing.table.TableModel;
+import mipet.Conexion;
 import mipet.Modelo.Cliente;
 
 
@@ -72,4 +74,8 @@ public boolean eliminar(Cliente cli) {
         }     
         return false;
     }     
+
+    public TableModel listarMascotas(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
