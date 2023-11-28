@@ -40,8 +40,8 @@ public class CrudMascotas {
             stmt.setBoolean(4, ma.isVigente());
             stmt.setInt(5, ma.getEdad());
             stmt.setInt(6,ma.getChip());
-          /*  stmt.setTipoMascotas(7,ma.getTipomascotas());
-            stmt.setCliente(8,ma.getCliente()); */
+            stmt.setInt(7,ma.getTipomascotas().getCodigo());
+            stmt.setString(8,ma.getCliente().getRut()); 
             stmt.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -116,7 +116,7 @@ public class CrudMascotas {
         }     
         return false;
     }   
-    public DefaultTableModel listarClientes(int opc) {
+    public DefaultTableModel listarMascotas(int opc) {
         Statement stmt;
         ResultSet rs;
         Conexion con= new Conexion();
@@ -124,27 +124,35 @@ public class CrudMascotas {
         try {
             stmt = conn.createStatement(); 
             if (opc==-1)
-                rs = stmt.executeQuery("select rut,nombre,fecnac,cv,descripcion from cliente c join profesion p where codpro=cod_pro");
+                rs = stmt.executeQuery("select chip,nombre,fec_nac,,descripcion from cliente c join profesion p where codpro=cod_pro");
             else
                 rs = stmt.executeQuery("select rut,nombre,fecnac,cv,descripcion from cliente c join profesion p where codpro=cod_pro and codpro="+opc);              
             DefaultTableModel DT=new DefaultTableModel();
-            DT.addColumn("Rut");
+            DT.addColumn("Chip");
             DT.addColumn("Nombre");
             DT.addColumn("Fecha Nacimiento");
-            DT.addColumn("CV Actualizado");
-            DT.addColumn("Profesion");
-            Object[] fila=new Object[5];
+            DT.addColumn("Vigente");
+            DT.addColumn("Edad");
+            DT.addColumn("Sexo");
+            DT.addColumn("Raza");
+            DT.addColumn("Tipo Mascotas");
+            DT.addColumn("Nombre Cliente");
+            Object[] fila=new Object[9];
             while (rs.next()) { 
-                fila[0]=rs.getString(1);
+                fila[0]=rs.getInt(1);
                 fila[1]=rs.getString(2);
                 String fecha=new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate(3));
                 fila[2]=fecha;
-                if (rs.getBoolean("cv"))
+                if (rs.getBoolean("Vigente"))
                     fila[3]="Si";
                 else{
                     fila[3]="No";
                 }
-                fila[4]=rs.getString(5);
+                fila[4]=rs.getInt(5);
+                fila[5]=rs.getString(6);
+                /*fila[6]rs.getString(7);
+                fila[7]rs.getInt(8);
+                fila[8]rs.getString(9);*/
                 DT.addRow(fila);
             }
             rs.close(); 
