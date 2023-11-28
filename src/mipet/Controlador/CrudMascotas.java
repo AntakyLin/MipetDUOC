@@ -28,19 +28,19 @@ public class CrudMascotas {
         Conexion con= new Conexion();
         Connection conn=con.conectarBD("mipet");
         PreparedStatement stmt;
-        String query = "insert into cliente (raza,nombre,fec_nac,edad,sexo,chip,vigente,tipomascota,cliente) values (?,?,?,?,?)";
+        String query = "insert into mascota (chip,nombre,fec_nac,edad,sexo,vigente,tipomascota,vigente,tipomascota,cliente) values (?,?,?,?,?)";
         DateFormat df = new SimpleDateFormat("yyyy-M-d");
         String fecha = df.format(ma.getFec_nac());
         try {
             stmt = conn.prepareStatement(query);
-            stmt.setString(1,ma.getRaza());
+            stmt.setString(4,ma.getSexo());
             stmt.setString(2,ma.getNombre());
             stmt.setDate(3, java.sql.Date.valueOf(fecha));
-            stmt.setBoolean(4, ma.isVigente());
-            stmt.setInt(5, ma.getEdad());
-            stmt.setInt(6,ma.getChip());
-            stmt.setInt(7,ma.getTipomascotas().getCodigo());
-            stmt.setString(8,ma.getCliente().getRut()); 
+            stmt.setBoolean(5, ma.isVigente());
+            stmt.setInt(3, ma.getEdad());
+            stmt.setInt(1,ma.getChip());
+            stmt.setInt(6,ma.getTipomascotas().getCodigo());
+            stmt.setString(7,ma.getCliente().getRut()); 
             stmt.executeUpdate();
             return true;
         } catch (SQLException ex) {
