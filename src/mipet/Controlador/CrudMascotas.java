@@ -73,14 +73,14 @@ public class CrudMascotas {
             return false;
         }     
     }
-    public boolean eliminar(Mascotas ma) {
+    public boolean eliminar(int code) {
         Conexion con= new Conexion();
         Connection conn=con.conectarBD("mipet");
         PreparedStatement stmt;
-        String query = "delete from cliente where rut=?";
+        String query = "delete from mascota where codigo=?";
         try {
             stmt = conn.prepareStatement(query);
-            stmt.setString(1,ma.getNombre());
+            stmt.setInt(1,code);
             stmt.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -121,8 +121,8 @@ public class CrudMascotas {
                 }
                 fila[4]=fecha;
                 fila[5]=rs.getString(4);
-                fila[6]=rs.getString(8)+"-"+rs.getString(9);
-                fila[7]=rs.getString(14);
+                fila[7]=rs.getString(8)+"-"+rs.getString(9);
+                fila[6]=rs.getString(14);
                 
                 DT.addRow(fila);
             }

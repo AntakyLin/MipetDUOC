@@ -21,7 +21,6 @@ public class VMascotas extends javax.swing.JFrame {
     
     public VMascotas() {
         initComponents();
-        opciones (opc);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     
     }
@@ -32,30 +31,6 @@ public class VMascotas extends javax.swing.JFrame {
                 btListaMascota.addItemListener(tmp.getNombre());
         
     }*/
-    private void opciones(int opc){
-        btIngresarMascota.setVisible(false);
-        btModificarMascota.setVisible(false);
-        btEliminarMascota.setVisible(false);  
-        btListaMascota.setVisible(false);
-        switch (opc) {
-            case 1: btIngresarMascota.setVisible(true);
-                    lblDatosdemascota.setText("Ingreso de Mascota");
-                    break;
-            case 2: btModificarMascota.setVisible(true);
-                    btModificarMascota.setVisible(true);
-                    lblDatosdemascota.setText("Modificación de Mascota");   
-                    break;               
-            case 3: btEliminarMascota.setVisible(true);
-                    btModificarMascota.setVisible(true);
-                    lblDatosdemascota.setText("Eliminación de Mascota");
-                    txtNombre.setEditable(false);
-                    txtFechaNacimiento.setEditable(false);
-                    break;
-            case 4: btListaMascota.setVisible(true);
-                    lblDatosdemascota.setText("Lista de Mascotas");
-                    break;
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -328,13 +303,15 @@ public class VMascotas extends javax.swing.JFrame {
     }//GEN-LAST:event_btIngresarMascotaActionPerformed
 
     private void btEliminarMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarMascotaActionPerformed
-         Mascotas ma=new Mascotas();
-        ma.setNombre(txtNombre.getText());
-        if (crudmascotas.eliminar(ma))
+        if (txtNumerodechip.getText().equals("")){
+            JOptionPane.showMessageDialog(this,"Ingrese un codigo de chip a eliminar");
+            return;
+        }
+        if (crudmascotas.eliminar(Integer.parseInt(txtNumerodechip.getText())))
             JOptionPane.showMessageDialog(this,"Mascota Eliminada Exitosamente");
         else
-            JOptionPane.showMessageDialog(this,"El Nombre No Existe en la BD");
-        this.dispose();
+            JOptionPane.showMessageDialog(this,"El codigo de chip No Existe en la BD");
+        
     }//GEN-LAST:event_btEliminarMascotaActionPerformed
 
     /**

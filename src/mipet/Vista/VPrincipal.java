@@ -23,7 +23,6 @@ public class VPrincipal extends javax.swing.JFrame {
         initComponents();
         jTable1.setModel(crudC.listarClientes(""));
         filterHeader = new TableFilterHeader(jTable1,AutoChoices.ENABLED);
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -46,6 +45,11 @@ public class VPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Selec_Vista.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Clientes", "Mascotas" }));
+        Selec_Vista.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                Selec_VistaItemStateChanged(evt);
+            }
+        });
 
         jLabel1.setText("Lista a ver:");
 
@@ -63,9 +67,9 @@ public class VPrincipal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Menu Clientes");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
             }
         });
 
@@ -126,18 +130,33 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void Selec_VistaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Selec_VistaItemStateChanged
         // TODO add your handling code here:
-        if (Selec_Vista.getSelectedItem()=="Mascotas"){
+       if (Selec_Vista.getSelectedItem()=="Mascotas"){
             ///CRUD VISTA MASCOTA
             jTable1.setModel(crudM.listarMascotas(-1));
+            jButton1.setText("Menu Mascotas");
         }else{
             ///CRUD VISTA CLIENTE
             jTable1.setModel(crudC.listarClientes(""));
-        }
+            jButton1.setText("Menu Clientes");
+        } 
     }//GEN-LAST:event_Selec_VistaItemStateChanged
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        if (Selec_Vista.getSelectedItem()=="Mascotas"){
+            java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new VMascotas().setVisible(true);
+            }
+        });
+        }else{
+            java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new VCliente().setVisible(true);
+            }
+        });
+        } 
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments

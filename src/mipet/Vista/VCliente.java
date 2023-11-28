@@ -19,7 +19,6 @@ public class VCliente extends javax.swing.JFrame {
 
     public VCliente() {
         initComponents();
-        opciones(opc);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
     private boolean validaRut(String rut){
@@ -41,23 +40,6 @@ public class VCliente extends javax.swing.JFrame {
         }
         return false;
     }
-     private void opciones(int opc){
-        btIngresarCliente.setVisible(false);
-        btModificarCliente.setVisible(false);
-        btEliminarCliente.setVisible(false);  
-        switch (opc) {
-            case 1: btIngresarCliente.setVisible(true);
-                    lblCliente.setText("Ingreso de Cliente");
-                    break;
-            case 2: btModificarCliente.setVisible(true);
-                    lblCliente.setText("Modificación de Cliente");   
-                    break;               
-            case 3: btEliminarCliente.setVisible(true);
-                    lblCliente.setText("Eliminación de Cliente");
-                    txtNombreCliente.setEditable(false);
-                    break;     
-        }
-     }
 
     /**
      * This method is called from within the constructor to initialize the form.
