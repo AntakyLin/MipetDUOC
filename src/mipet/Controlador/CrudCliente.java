@@ -11,7 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import mipet.Util.Conexion;
 import javax.swing.table.TableModel;
-import mipet.Conexion;
 import mipet.Modelo.Cliente;
 
 
