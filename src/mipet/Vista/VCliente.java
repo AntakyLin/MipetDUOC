@@ -4,7 +4,9 @@
  */
 package mipet.Vista;
 
+import javax.swing.JOptionPane;
 import mipet.Controlador.CrudCliente;
+import mipet.Modelo.Cliente;
 
 /**
  *
@@ -41,7 +43,7 @@ public class VCliente extends javax.swing.JFrame {
      private void opciones(int opc){
          btnIngresarCliente.setVisible(false);
          switch (opc) {
-             Case 1: btnIngresarCliente.setVisible(true);
+             case 1: btnIngresarCliente.setVisible(true);
                      lblCliente.setText("Ingreso Cliente");
                      break;
          }        
@@ -178,7 +180,15 @@ public class VCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreClienteActionPerformed
 
     private void btIngresarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIngresarClienteActionPerformed
-        // TODO add your handling code here:
+        String run=txtRut.getText();
+        String nomb=txtNombreCliente.getText();
+        String appa=txtApellidoPaterno.getText();
+        String apma=txtApellidoMaterno.getText();
+        
+        Cliente cli=new Cliente(run,nomb,appa,apma);
+        crudcliente.agregar(cli);
+        JOptionPane.showMessageDialog(this,"Cliente Ingresado Correctamente");
+        
     }//GEN-LAST:event_btIngresarClienteActionPerformed
 
     /**
