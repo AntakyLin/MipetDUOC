@@ -6,9 +6,13 @@ package mipet.Controlador;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 import mipet.Util.Conexion;
 import javax.swing.table.TableModel;
 import mipet.Modelo.Cliente;
@@ -74,7 +78,37 @@ public boolean eliminar(Cliente cli) {
         return false;
     }     
 
-    public TableModel listarMascotas(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public TableModel listarClientes(String opc) {
+        
+        Statement stmt;
+        ResultSet rs;
+        Conexion con= new Conexion();
+        Connection conn=con.conectarBD("mipet");
+        try {
+            stmt = conn.createStatement(); 
+            if (opc.equals(""))
+                rs = stmt.executeQuery("select * from cliente");
+            else
+                rs = stmt.executeQuery("select * from cliente where rut="+opc);              
+            DefaultTableModel DT=new DefaultTableModel();
+            DT.addColumn("Nombre");
+            DT.addColumn("apellido materno");
+            DT.addColumn("apellido paterno");
+            DT.addColumn("rut");
+            Object[] fila=new Object[4];
+            while (rs.next()) { 
+                fila[0]=rs.getString(3);
+                fila[1]=rs.getString(4);
+                fila[2]=rs.getString(5);
+                fila[3]=rs.getString(1)+"-"+rs.getString(2);
+                
+                DT.addRow(fila);
+            }
+            rs.close(); 
+            stmt.close(); 
+            return(DT);
+        } catch (SQLException ex) {
+            return null;
+        }
     }
 }

@@ -21,7 +21,7 @@ public class VPrincipal extends javax.swing.JFrame {
    
     public VPrincipal() {
         initComponents();
-        jTable1.setModel(crudM.listarMascotas(-1));
+        jTable1.setModel(crudC.listarClientes(""));
         filterHeader = new TableFilterHeader(jTable1,AutoChoices.ENABLED);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
@@ -128,8 +128,10 @@ public class VPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (Selec_Vista.getSelectedItem()=="Mascotas"){
             ///CRUD VISTA MASCOTA
+            jTable1.setModel(crudM.listarMascotas(-1));
         }else{
             ///CRUD VISTA CLIENTE
+            jTable1.setModel(crudC.listarClientes(""));
         }
     }//GEN-LAST:event_Selec_VistaItemStateChanged
 
