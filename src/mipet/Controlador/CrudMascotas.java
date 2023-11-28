@@ -98,7 +98,7 @@ public class CrudMascotas {
             if (opc==-1)
                 rs = stmt.executeQuery("select * from mascota join cliente on mascota.rut_cliente=cliente.rut join tipo_mascota on mascota.tipo=tipo_mascota.id");
             else
-                rs = stmt.executeQuery("select rut,nombre,fecnac,cv,descripcion from cliente c join profesion p where codpro=cod_pro and codpro="+opc);              
+                rs = stmt.executeQuery("select * from mascota join cliente on mascota.rut_cliente=cliente.rut join tipo_mascota on mascota.tipo=tipo_mascota.id where codigo="+opc);              
             DefaultTableModel DT=new DefaultTableModel();
             DT.addColumn("Chip");
             DT.addColumn("Nombre");
@@ -106,25 +106,24 @@ public class CrudMascotas {
             DT.addColumn("Vigente");
             DT.addColumn("Edad");
             DT.addColumn("Sexo");
-            DT.addColumn("Raza");
             DT.addColumn("Tipo Mascotas");
-            DT.addColumn("Nombre Cliente");
+            DT.addColumn("Rut Cliente");
             Object[] fila=new Object[9];
             while (rs.next()) { 
                 fila[0]=rs.getInt(1);
                 fila[1]=rs.getString(2);
-                String fecha=new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate(3));
+                String fecha=new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate(5));
                 fila[2]=fecha;
-                if (rs.getBoolean("Vigente"))
+                if (rs.getBoolean("vigente"))
                     fila[3]="Si";
                 else{
                     fila[3]="No";
                 }
-                fila[4]=rs.getInt(5);
-                fila[5]=rs.getString(6);
-                /*fila[6]rs.getString(7);
-                fila[7]rs.getInt(8);
-                fila[8]rs.getString(9);*/
+                fila[4]=fecha;
+                fila[5]=rs.getString(4);
+                fila[6]=rs.getString(8)+"-"+rs.getInt(9);
+                fila[7]=rs.getInt(14);
+                
                 DT.addRow(fila);
             }
             rs.close(); 
