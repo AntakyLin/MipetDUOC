@@ -108,11 +108,11 @@ public class CrudMascotas {
             DT.addColumn("Sexo");
             DT.addColumn("Tipo Mascotas");
             DT.addColumn("Rut Cliente");
-            Object[] fila=new Object[9];
+            Object[] fila=new Object[8];
             while (rs.next()) { 
                 fila[0]=rs.getInt(1);
                 fila[1]=rs.getString(2);
-                String fecha=new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate(5));
+                String fecha=new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate(3));
                 fila[2]=fecha;
                 if (rs.getBoolean("vigente"))
                     fila[3]="Si";
@@ -121,8 +121,8 @@ public class CrudMascotas {
                 }
                 fila[4]=fecha;
                 fila[5]=rs.getString(4);
-                fila[6]=rs.getString(8)+"-"+rs.getInt(9);
-                fila[7]=rs.getInt(14);
+                fila[6]=rs.getString(8)+"-"+rs.getString(9);
+                fila[7]=rs.getString(14);
                 
                 DT.addRow(fila);
             }
