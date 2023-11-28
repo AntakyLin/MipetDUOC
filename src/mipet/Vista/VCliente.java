@@ -4,7 +4,10 @@
  */
 package mipet.Vista;
 
+
+import javax.swing.JOptionPane;
 import mipet.Controlador.CrudCliente;
+import mipet.Modelo.Cliente;
 
 /**
  *
@@ -39,15 +42,22 @@ public class VCliente extends javax.swing.JFrame {
         return false;
     }
      private void opciones(int opc){
-         btnIngresarCliente.setVisible(false);
-         switch (opc) {
-             Case 1: btnIngresarCliente.setVisible(true);
-                     lblCliente.setText("Ingreso Cliente");
-                     break;
-         }        
-     
+        btIngresarCliente.setVisible(false);
+        btModificarCliente.setVisible(false);
+        btEliminarCliente.setVisible(false);  
+        switch (opc) {
+            case 1: btIngresarCliente.setVisible(true);
+                    lblCliente.setText("Ingreso de Cliente");
+                    break;
+            case 2: btModificarCliente.setVisible(true);
+                    lblCliente.setText("Modificación de Cliente");   
+                    break;               
+            case 3: btEliminarCliente.setVisible(true);
+                    lblCliente.setText("Eliminación de Cliente");
+                    txtNombreCliente.setEditable(false);
+                    break;     
+        }
      }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,6 +79,8 @@ public class VCliente extends javax.swing.JFrame {
         txtApellidoMaterno = new javax.swing.JTextField();
         txtRut = new javax.swing.JTextField();
         btIngresarCliente = new javax.swing.JButton();
+        btEliminarCliente = new javax.swing.JButton();
+        btModificarCliente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,6 +104,20 @@ public class VCliente extends javax.swing.JFrame {
         btIngresarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btIngresarClienteActionPerformed(evt);
+            }
+        });
+
+        btEliminarCliente.setText("Eliminar Cliente");
+        btEliminarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEliminarClienteActionPerformed(evt);
+            }
+        });
+
+        btModificarCliente.setText("Modificar Cliente");
+        btModificarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btModificarClienteActionPerformed(evt);
             }
         });
 
@@ -121,11 +147,16 @@ public class VCliente extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtApellidoPaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNombreCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(txtNombreCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(btIngresarCliente)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                        .addGap(33, 33, 33)
+                        .addComponent(btIngresarCliente)
+                        .addGap(18, 18, 18)
+                        .addComponent(btModificarCliente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addComponent(btEliminarCliente)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,9 +179,12 @@ public class VCliente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRut)
                     .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(btIngresarCliente)
-                .addGap(28, 28, 28))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btIngresarCliente)
+                    .addComponent(btEliminarCliente)
+                    .addComponent(btModificarCliente))
+                .addGap(29, 29, 29))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -160,7 +194,7 @@ public class VCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,8 +212,40 @@ public class VCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreClienteActionPerformed
 
     private void btIngresarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIngresarClienteActionPerformed
-        // TODO add your handling code here:
+        if (!validaRut(txtRut.getText())){ 
+            JOptionPane.showMessageDialog(this,"Rut Invalido");
+            txtRut.setText(null);
+            return;
+        }
+        String run=txtRut.getText();
+        String nomb=txtNombreCliente.getText();
+        String appa=txtApellidoPaterno.getText();
+        String apma=txtApellidoMaterno.getText();
+        
+        Cliente cli=new Cliente(run,nomb,appa,apma);
+        crudcliente.agregar(cli);
+        JOptionPane.showMessageDialog(this,"Cliente Ingresado Correctamente");
     }//GEN-LAST:event_btIngresarClienteActionPerformed
+
+    private void btEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarClienteActionPerformed
+        Cliente cliente;
+        cliente=new Cliente(txtNombreCliente.getText(),txtRut.getText(),txtApellidoPaterno.getText(),txtApellidoMaterno.getText());
+        if (crudcliente.eliminar(cliente))
+            JOptionPane.showMessageDialog(this,"Cliente Eliminado Exitosamente");
+        else
+            JOptionPane.showMessageDialog(this,"Rut No Existe en la BD");
+        this.dispose();
+    }//GEN-LAST:event_btEliminarClienteActionPerformed
+
+    private void btModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarClienteActionPerformed
+        Cliente cliente;
+        cliente=new Cliente(txtNombreCliente.getText(),txtRut.getText(),txtApellidoPaterno.getText(),txtApellidoMaterno.getText());
+        if (crudcliente.modificar(cliente))
+            JOptionPane.showMessageDialog(this,"Cliente Modificado Exitosamente");
+        else
+            JOptionPane.showMessageDialog(this,"Rut No Existe en la BD");
+        this.dispose();
+    }//GEN-LAST:event_btModificarClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,7 +284,9 @@ public class VCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btEliminarCliente;
     private javax.swing.JButton btIngresarCliente;
+    private javax.swing.JButton btModificarCliente;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblApellidoMaterno;
     private javax.swing.JLabel lblApellidoPaterno;

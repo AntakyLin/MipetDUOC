@@ -14,8 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import mipet.Conexion;
-import mipet.Modelo.Cliente;
+import mipet.Util.Conexion;
 import mipet.Modelo.Mascotas;
 
 
@@ -49,34 +48,7 @@ public class CrudMascotas {
         }
     }
     
-    public String buscar(Mascotas ma) {
-        Statement stmt;
-        ResultSet rs;
-        Conexion con= new Conexion();
-        Connection conn=con.conectarBD("mipet");
-        String codigo="-1";
-        Cliente cliente=new Cliente();
-        try {
-            stmt = conn.createStatement(); 
-            rs = stmt.executeQuery("select raza,nombre,fec_nac,edad,codpro from cliente where rut='"+ma.getChip()+"'");
-            while (rs.next()) { 
-                ma.setNombre(rs.getString(1));
-                ma.setFec_nac(rs.getDate(2));
-                ma.setVigente(rs.getBoolean(3));
-                ma.setChip(rs.getInt(4));
-                ma.setRaza(rs.getString(5));
-                ma.setEdad(rs.getInt(6));
-                ma.setSexo(rs.getString(7));
-                /*ma.setTipomascotas(rs.getInt(8));
-                ma.setCliente(rs.getString(9));*/
-            }
-            rs.close(); 
-            stmt.close(); 
-            return codigo;
-        } catch (SQLException ex) {
-           return codigo; 
-        }
-    }
+    
     public boolean modificar(Mascotas ma) {
         Conexion con= new Conexion();
         Connection conn=con.conectarBD("mipet");
@@ -162,5 +134,9 @@ public class CrudMascotas {
             return null;
         }
     }    
+
+    public boolean listar(Mascotas ma) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
     

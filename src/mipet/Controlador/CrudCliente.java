@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import mipet.Conexion;
+import mipet.Util.Conexion;
 import mipet.Modelo.Cliente;
 
 
