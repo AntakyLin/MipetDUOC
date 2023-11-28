@@ -96,7 +96,7 @@ public class CrudMascotas {
         try {
             stmt = conn.createStatement(); 
             if (opc==-1)
-                rs = stmt.executeQuery("select chip,nombre,fec_nac,,descripcion from cliente c join profesion p where codpro=cod_pro");
+                rs = stmt.executeQuery("select * from mascota join cliente on mascota.rut_cliente=cliente.rut join tipo_mascota on mascota.tipo=tipo_mascota.id");
             else
                 rs = stmt.executeQuery("select rut,nombre,fecnac,cv,descripcion from cliente c join profesion p where codpro=cod_pro and codpro="+opc);              
             DefaultTableModel DT=new DefaultTableModel();
